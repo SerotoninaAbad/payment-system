@@ -1,0 +1,35 @@
+{
+  "name": "ja-calculadora",
+  "version": "1.0.0",
+  "description": "Simulador de Crédito y Ahorro para la Cooperativa Jardín Azuayo",
+  "main": "index.js",
+  "repository": "https://github.com/almendratic/ja-calculadora",
+  "author": "Almendra",
+  "license": "MIT",
+  "scripts": {
+    "start:dev": "nodemon",
+    "build": "rimraf ./build && tsc",
+    "start": "yarn run build && node build/index.js",
+    "lint": "eslint . --ext .ts",
+    "lint-and-fix": "eslint . --ext .ts --fix",
+    "prettier-format": "prettier --config .prettierrc 'src/**/*.ts' --write"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn run prettier-format && yarn run lint"
+    }
+  },
+  "devDependencies": {
+    "@types/node": "^13.13.5",
+    "@typescript-eslint/eslint-plugin": "^2.31.0",
+    "@typescript-eslint/parser": "^2.31.0",
+    "eslint": "^7.0.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-prettier": "^3.1.3",
+    "husky": "^4.2.5",
+    "nodemon": "^2.0.3",
+    "prettier": "^2.0.5",
+    "ts-node": "^8.10.1",
+    "typescript": "^3.8.3"
+  }
+}
