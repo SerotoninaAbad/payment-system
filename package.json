@@ -16,8 +16,15 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "yarn run prettier-format && yarn run lint"
+      "pre-commit": "lint-staged"
     }
+  },
+  "lint-staged": {
+    "src/**/*.{ts,js}": [
+      "prettier --config .prettierrc --write",
+      "eslint",
+      "git add"
+    ]
   },
   "devDependencies": {
     "@types/node": "^13.13.5",
@@ -27,6 +34,7 @@
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-prettier": "^3.1.3",
     "husky": "^4.2.5",
+    "lint-staged": "^10.2.2",
     "nodemon": "^2.0.3",
     "prettier": "^2.0.5",
     "ts-node": "^8.10.1",
