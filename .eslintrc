@@ -12,6 +12,8 @@
     "no-console": 1,
     "semi": "off",
     "@typescript-eslint/semi": ["error"],
-    "prettier/prettier": 2
+    "@typescript-eslint/interface-name-prefix": 0,
+    "prettier/prettier": 2,
+    "@typescript-eslint/no-use-before-define": 0
   }
 }
