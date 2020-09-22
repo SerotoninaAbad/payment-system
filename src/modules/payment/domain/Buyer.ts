@@ -6,7 +6,8 @@ import { Guard } from '@core/Guard';
 interface BuyerProps {
   DNI: string | null;
   referenceID: string | null;
-  nombre: string;
+  name: string;
+  surname: string;
   email: string;
 }
 
@@ -23,8 +24,12 @@ export class Buyer extends Entity<BuyerProps> {
     return this.props.referenceID;
   }
 
-  get nombre(): string {
-    return this.props.nombre;
+  get name(): string {
+    return this.props.name;
+  }
+
+  get surname(): string {
+    return this.props.surname;
   }
 
   get email(): string {

@@ -10,6 +10,9 @@ interface PurchaseOrderProps {
   referenceDescription: string;
   dateOfIssue: Date;
   amount: number;
+  ipAddress: string;
+  userAgent: string;
+  webCheckoutURL: string;
 }
 export class PurchaseOrder extends Entity<PurchaseOrderProps> {
   get id(): UniqueEntityID {
@@ -38,6 +41,18 @@ export class PurchaseOrder extends Entity<PurchaseOrderProps> {
 
   get amount(): number {
     return this.props.amount;
+  }
+
+  get ipAddress(): string {
+    return this.props.ipAddress;
+  }
+
+  get userAgent(): string {
+    return this.props.userAgent;
+  }
+
+  get webCheckoutURL(): string {
+    return this.props.webCheckoutURL;
   }
 
   constructor(props: PurchaseOrderProps, id?: UniqueEntityID) {

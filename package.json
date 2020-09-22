@@ -14,7 +14,8 @@
     "lint": "eslint . --ext .ts",
     "lint-and-fix": "eslint . --ext .ts --fix",
     "prettier-format": "prettier --config .prettierrc 'src/**/*.ts' --write",
-    "test": "jest --watch"
+    "test": "jest --watch",
+    "test:coverage": "jest --coverage"
   },
   "husky": {
     "hooks": {
@@ -24,12 +25,13 @@
   "lint-staged": {
     "src/**/*.{ts,js}": [
       "prettier --config .prettierrc --write",
-      "eslint"
+      "eslint --fix"
     ]
   },
   "devDependencies": {
     "@types/jest": "^25.2.1",
     "@types/node": "^13.13.5",
+    "@types/uuid": "^8.3.0",
     "@typescript-eslint/eslint-plugin": "^2.31.0",
     "@typescript-eslint/parser": "^2.31.0",
     "eslint": "^7.0.0",
@@ -46,6 +48,6 @@
   },
   "dependencies": {
     "date-fns": "^2.16.1",
-    "uuidv4": "^6.2.3"
+    "uuid": "^8.3.0"
   }
 }

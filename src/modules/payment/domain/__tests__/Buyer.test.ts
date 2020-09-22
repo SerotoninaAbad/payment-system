@@ -5,7 +5,8 @@ const buyerData = {
   id: '0f627eb6-2d8f-44e9-a815-2f91f5e9295f',
   referenceID: '0f627eb6-2d8f-44e9-a815-2f91f5e9295f',
   DNI: '0103862119',
-  nombre: 'María Belén Abad',
+  name: 'María Belén',
+  surname: 'Abad Castro',
   email: 'hola@almendra.com.ec'
 };
 
@@ -16,9 +17,10 @@ describe('Buyer Class', () => {
     const buyer = buyerResult.getValue();
     expect(buyer.id.toValue()).not.toBeNull();
     expect(buyer.DNI).toBe(buyerData.DNI);
-    expect(buyer.nombre).toBe(buyerData.nombre);
+    expect(buyer.name).toBe(buyerData.name);
     expect(buyer.email).toBe(buyerData.email);
     expect(buyer.referenceID).toBe(buyerData.referenceID);
+    expect(buyer.surname).toBe(buyerData.surname);
   });
 
   test('create new buyer class with ID', () => {
@@ -30,8 +32,9 @@ describe('Buyer Class', () => {
     const buyer = buyerResult.getValue();
     expect(buyer.id.toValue()).toBe(buyerData.id);
     expect(buyer.DNI).toBe(buyerData.DNI);
-    expect(buyer.nombre).toBe(buyerData.nombre);
+    expect(buyer.name).toBe(buyerData.name);
     expect(buyer.email).toBe(buyerData.email);
+    expect(buyer.referenceID).toBe(buyerData.referenceID);
   });
 
   test('create new buyer with invalid email', () => {

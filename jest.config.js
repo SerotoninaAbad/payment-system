@@ -8,6 +8,7 @@ module.exports = {
   transform: {
     '^.+\\.ts?$': 'ts-jest'
   },
+  collectCoverageFrom: ['src/**/{!(Fake),}.ts'],
   testMatch: ['**/__tests__/**/*.test.(ts|js)'],
   testEnvironment: 'node',
   moduleNameMapper: {

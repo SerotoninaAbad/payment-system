@@ -9,7 +9,10 @@ const purchaseOrderData = {
   referenceID: '0030233-939499394932-223',
   referenceDescription: 'Un curso Ser Bachiller para periodo 2020-2021',
   dateOfIssue,
-  amount: 123.44
+  amount: 123.44,
+  ipAddress: '01.023.23.112',
+  userAgent: 'Mozilla Firefox Mac',
+  webCheckoutURL: 'htttp://lospolloshermanos.com/webcheckout'
 };
 
 describe('Purchase Order Class', () => {
@@ -20,7 +23,10 @@ describe('Purchase Order Class', () => {
       referenceID: purchaseOrderData.referenceID,
       referenceDescription: purchaseOrderData.referenceDescription,
       dateOfIssue: purchaseOrderData.dateOfIssue,
-      amount: purchaseOrderData.amount
+      amount: purchaseOrderData.amount,
+      ipAddress: purchaseOrderData.ipAddress,
+      userAgent: purchaseOrderData.userAgent,
+      webCheckoutURL: purchaseOrderData.webCheckoutURL
     });
 
     const purchaseOrder = purchaseOrderResult.getValue();
@@ -33,6 +39,9 @@ describe('Purchase Order Class', () => {
     );
     expect(purchaseOrder.dateOfIssue).toBe(purchaseOrderData.dateOfIssue);
     expect(purchaseOrder.amount).toBe(purchaseOrderData.amount);
+    expect(purchaseOrder.ipAddress).toBe(purchaseOrderData.ipAddress);
+    expect(purchaseOrder.userAgent).toBe(purchaseOrderData.userAgent);
+    expect(purchaseOrder.webCheckoutURL).toBe(purchaseOrderData.webCheckoutURL);
   });
 
   test('create new object with ID', () => {
@@ -43,7 +52,10 @@ describe('Purchase Order Class', () => {
         referenceID: purchaseOrderData.referenceID,
         referenceDescription: purchaseOrderData.referenceDescription,
         dateOfIssue: purchaseOrderData.dateOfIssue,
-        amount: purchaseOrderData.amount
+        amount: purchaseOrderData.amount,
+        ipAddress: purchaseOrderData.ipAddress,
+        userAgent: purchaseOrderData.userAgent,
+        webCheckoutURL: purchaseOrderData.webCheckoutURL
       },
       new UniqueEntityID(purchaseOrderData.id)
     );
@@ -61,7 +73,10 @@ describe('Purchase Order Class', () => {
         referenceID: purchaseOrderData.referenceID,
         referenceDescription: purchaseOrderData.referenceDescription,
         dateOfIssue: purchaseOrderData.dateOfIssue,
-        amount: -122
+        amount: -122,
+        ipAddress: purchaseOrderData.ipAddress,
+        userAgent: purchaseOrderData.userAgent,
+        webCheckoutURL: purchaseOrderData.webCheckoutURL
       },
       new UniqueEntityID(purchaseOrderData.id)
     );
