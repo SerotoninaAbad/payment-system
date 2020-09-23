@@ -13,6 +13,7 @@ import { CreatePurchaseOrderErrors } from './CreatePurchaseOrderErrors';
 import { AppError } from '@core/AppError';
 
 type Response = Either<
+  | CreatePurchaseOrderErrors.CannotCreateBuyerError
   | CreatePurchaseOrderErrors.PurchaseOrderCreationError
   | AppError.UnexpectedError,
   Result<PurchaseOrder>
@@ -33,7 +34,7 @@ export interface CreatePurchaseOrderDTO {
 }
 
 export class CreatePurchaseOrder
-  implements UseCase<CreatePurchaseOrderDTO, Promise<Response>> {
+  implements UseCase<CreatePurchaseOrderDTO, Response> {
   public buyerRepo: IBuyerRepo;
   public paymentButton: IPaymentButton;
   public purchaseOrderRepo: IPurchaseOrderRepo;

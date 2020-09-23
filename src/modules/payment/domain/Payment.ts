@@ -1,7 +1,6 @@
 import { Result } from '@core/Result';
 import { Entity } from '@domain/Entity';
 import { UniqueEntityID } from '@domain/UniqueEntityID';
-import { Guard } from '@core/Guard';
 import { DateUtils } from '@utils/DateUtils';
 
 export type PaymentStatus =
@@ -17,11 +16,9 @@ interface PaymentProps {
   status: PaymentStatus;
   statusDescription: string;
   invoiceNumber: string | null;
-  amount: number;
   term: PaymentTerms;
   dateOfIssue: Date;
   validUntil: Date | null;
-  userReferenceID: string;
 }
 
 export type PaymentTerms = 'MONTHLY' | 'QUARTERLY' | 'BIANNUAL' | 'ANNUAL';
@@ -47,16 +44,8 @@ export class Payment extends Entity<PaymentProps> {
     return this.props.invoiceNumber;
   }
 
-  get amount(): number {
-    return this.props.amount;
-  }
-
   get dateOfIssue(): Date {
     return this.props.dateOfIssue;
-  }
-
-  get userReferenceID(): string | null {
-    return this.props.userReferenceID;
   }
 
   get validUntil(): Date | null {
@@ -67,7 +56,10 @@ export class Payment extends Entity<PaymentProps> {
     super(props, id);
   }
 
-  public static calculateValidUntil(dateFrom: Date, term: PaymentTerms): Date {
+  public static calculateValidUntil(
+    dateFrom: Date,
+    term: PaymentTerms = 'MONTHLY'
+  ): Date {
     if (term === 'MONTHLY') {
       return DateUtils.addMonths(dateFrom, 1);
     } else if (term === 'QUARTERLY') {
@@ -83,11 +75,8 @@ export class Payment extends Entity<PaymentProps> {
     props: PaymentProps,
     id?: UniqueEntityID
   ): Result<Payment> {
-    const greaterThanZeroResult = Guard.greaterThan(0, props.amount);
-    if (!greaterThanZeroResult.succeeded) {
-      return Result.fail<Payment>(
-        `Error al crear cantidad. ${greaterThanZeroResult.message}`
-      );
+    if (props.purchaseOrderID === '') {
+      return Result.fail<Payment>('La órden de compra no puede estar vacía');
     }
 
     const paymentProps = {

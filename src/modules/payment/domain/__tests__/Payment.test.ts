@@ -31,9 +31,7 @@ describe('Payment Class', () => {
     expect(payment.status).toBe(paymentData.status);
     expect(payment.statusDescription).toBe(paymentData.statusDescription);
     expect(payment.invoiceNumber).toBe(paymentData.invoiceNumber);
-    expect(payment.amount).toBe(paymentData.amount);
     expect(payment.dateOfIssue).toBe(paymentData.dateOfIssue);
-    expect(payment.userReferenceID).toBe(paymentData.userReferenceID);
     expect(payment.validUntil?.toLocaleString()).toBe(
       '10/15/2020, 12:00:00 AM'
     );
@@ -65,17 +63,5 @@ describe('Payment Class', () => {
 
     payment = paymentResult.getValue();
     expect(payment.validUntil?.toLocaleString()).toBe('9/15/2021, 12:00:00 AM');
-  });
-
-  test('fail when given negative amount', () => {
-    const paymentResult = Payment.create({
-      ...paymentData,
-      amount: -123
-    });
-
-    expect(paymentResult.isFailure).toBeTruthy();
-    expect(paymentResult.error).toBe(
-      'Error al crear cantidad. El número {-123} no es mayor a {0}'
-    );
   });
 });
