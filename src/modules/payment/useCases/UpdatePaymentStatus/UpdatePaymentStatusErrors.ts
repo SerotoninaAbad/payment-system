@@ -1,7 +1,7 @@
 import { Result } from '@core/Result';
 import { UseCaseError } from '@core/UseCaseError';
 
-export namespace VerifyPaymentErrors {
+export namespace UpdatePaymentStatusErrors {
   export class CannotRetrievePaymentError extends Result<UseCaseError> {
     constructor() {
       super(false, {

@@ -1,5 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { VerifyPayment, VerifyPaymentDTO } from '../VerifyPayment';
+import {
+  UpdatePaymentStatus,
+  UpdatePaymentStatusDTO
+} from '../UpdatePaymentStatus';
 import { FakePaymentRepo } from '../../../repos/implementations/__tests__/FakePaymentRepo';
 import { FakePaymentButton } from '../../../services/implementations/__tests__/FakePaymentButton';
 import { FakePurchaseOrderRepo } from '../../../repos/implementations/__tests__/FakePurchaseOrderRepo';
@@ -7,11 +10,11 @@ import { Payment } from '../../../domain/Payment';
 import { UniqueEntityID } from '@domain/UniqueEntityID';
 import { UseCaseError } from '@core/UseCaseError';
 
-const verifyPaymentDTO: VerifyPaymentDTO = {
+const updatePaymentStatusDTO: UpdatePaymentStatusDTO = {
   paymentID: '08ba3734-ee74-4359-b9b5-312d0666f724'
 };
 
-describe('VerifyPayment', () => {
+describe('UpdatePaymentStatus', () => {
   test('Verify payment status with payment system and update it', async () => {
     const spyGetPayment = jest.spyOn(FakePaymentRepo.prototype, 'getByID');
     const spySavePayment = jest.spyOn(
@@ -31,13 +34,13 @@ describe('VerifyPayment', () => {
     const paymentButton = new FakePaymentButton();
     const purchaseOrderRepo = new FakePurchaseOrderRepo();
 
-    const verifyPayment = new VerifyPayment(
+    const updatePaymentStatus = new UpdatePaymentStatus(
       paymentRepo,
       purchaseOrderRepo,
       paymentButton
     );
 
-    await verifyPayment.execute(verifyPaymentDTO);
+    await updatePaymentStatus.execute(updatePaymentStatusDTO);
     expect(spyGetPayment).toHaveBeenCalledTimes(1);
 
     expect(spyGetPurchaseOrder).toHaveBeenCalledTimes(1);
@@ -61,7 +64,7 @@ describe('VerifyPayment', () => {
         term: 'MONTHLY',
         validUntil: null
       },
-      new UniqueEntityID(verifyPaymentDTO.paymentID)
+      new UniqueEntityID(updatePaymentStatusDTO.paymentID)
     );
     const updatedPayment = updatedPaymentResult.getValue();
     expect(spySavePayment).toHaveBeenCalledWith(updatedPayment);
@@ -82,13 +85,13 @@ describe('VerifyPayment', () => {
     const paymentButton = new FakePaymentButton();
     const purchaseOrderRepo = new FakePurchaseOrderRepo();
 
-    const verifyPayment = new VerifyPayment(
+    const updatePaymentStatus = new UpdatePaymentStatus(
       paymentRepo,
       purchaseOrderRepo,
       paymentButton
     );
 
-    const result = await verifyPayment.execute(verifyPaymentDTO);
+    const result = await updatePaymentStatus.execute(updatePaymentStatusDTO);
     expect(result.isLeft()).toBeTruthy();
     const errorMessage = result.value.error as UseCaseError;
     expect(errorMessage.message).toBe(
@@ -109,13 +112,13 @@ describe('VerifyPayment', () => {
     const paymentButton = new FakePaymentButton();
     const purchaseOrderRepo = new FakePurchaseOrderRepo();
 
-    const verifyPayment = new VerifyPayment(
+    const updatePaymentStatus = new UpdatePaymentStatus(
       paymentRepo,
       purchaseOrderRepo,
       paymentButton
     );
 
-    const result = await verifyPayment.execute(verifyPaymentDTO);
+    const result = await updatePaymentStatus.execute(updatePaymentStatusDTO);
     expect(result.isLeft()).toBeTruthy();
     const errorMessage = result.value.error as UseCaseError;
     expect(errorMessage.message).toBe(
@@ -136,13 +139,13 @@ describe('VerifyPayment', () => {
     const paymentButton = new FakePaymentButton();
     const purchaseOrderRepo = new FakePurchaseOrderRepo();
 
-    const verifyPayment = new VerifyPayment(
+    const updatePaymentStatus = new UpdatePaymentStatus(
       paymentRepo,
       purchaseOrderRepo,
       paymentButton
     );
 
-    const result = await verifyPayment.execute(verifyPaymentDTO);
+    const result = await updatePaymentStatus.execute(updatePaymentStatusDTO);
     expect(result.isLeft()).toBeTruthy();
     const errorMessage = result.value.error as UseCaseError;
     expect(errorMessage.message).toBe(
@@ -157,13 +160,13 @@ describe('VerifyPayment', () => {
     const paymentButton = new FakePaymentButton();
     const purchaseOrderRepo = new FakePurchaseOrderRepo();
 
-    const verifyPayment = new VerifyPayment(
+    const updatePaymentStatus = new UpdatePaymentStatus(
       paymentRepo,
       purchaseOrderRepo,
       paymentButton
     );
 
-    const result = await verifyPayment.execute(verifyPaymentDTO);
+    const result = await updatePaymentStatus.execute(updatePaymentStatusDTO);
     expect(result.isLeft()).toBeTruthy();
     const errorMessage = result.value.error as UseCaseError;
     expect(errorMessage.message).toBe(

@@ -1,23 +1,24 @@
 import { UseCase } from '@core/UseCase';
 import { Result, Either, left, right } from '@core/Result';
-import { VerifyPaymentErrors } from './VerifyPaymentErrors';
+import { UpdatePaymentStatusErrors } from './UpdatePaymentStatusErrors';
 import { IPaymentRepo } from '../../repos/PaymentRepo';
 import { IPaymentButton, PaymentStatusDTO } from '../../services/PaymentButton';
 import { IPurchaseOrderRepo } from '../../repos/PurchaseOrderRepo';
 import { Payment } from '../../domain/Payment';
 import { PurchaseOrder } from '../../domain/PurchaseOrder';
 
-export interface VerifyPaymentDTO {
+export interface UpdatePaymentStatusDTO {
   paymentID: string;
 }
 
 type Response = Either<
-  | VerifyPaymentErrors.PaymentButtonResponseError
-  | VerifyPaymentErrors.PaymentNotFoundError,
+  | UpdatePaymentStatusErrors.PaymentButtonResponseError
+  | UpdatePaymentStatusErrors.PaymentNotFoundError,
   Result<void>
 >;
 
-export class VerifyPayment implements UseCase<VerifyPaymentDTO, Response> {
+export class UpdatePaymentStatus
+  implements UseCase<UpdatePaymentStatusDTO, Response> {
   paymentRepo: IPaymentRepo;
   paymentButton: IPaymentButton;
   purchaseOrderRepo: IPurchaseOrderRepo;
@@ -31,15 +32,19 @@ export class VerifyPayment implements UseCase<VerifyPaymentDTO, Response> {
     this.purchaseOrderRepo = purchaseOrderRepo;
     this.paymentButton = paymentButton;
   }
-  async execute(verifyPaymentDTO: VerifyPaymentDTO): Promise<Response> {
+  async execute(
+    updatePaymentStatusDTO: UpdatePaymentStatusDTO
+  ): Promise<Response> {
     let payment: Payment | null;
     try {
-      payment = await this.paymentRepo.getByID(verifyPaymentDTO.paymentID);
+      payment = await this.paymentRepo.getByID(
+        updatePaymentStatusDTO.paymentID
+      );
       if (!payment) {
-        return left(new VerifyPaymentErrors.PaymentNotFoundError());
+        return left(new UpdatePaymentStatusErrors.PaymentNotFoundError());
       }
     } catch {
-      return left(new VerifyPaymentErrors.CannotRetrievePaymentError());
+      return left(new UpdatePaymentStatusErrors.CannotRetrievePaymentError());
     }
 
     let purchaseOrder: PurchaseOrder;
@@ -48,7 +53,9 @@ export class VerifyPayment implements UseCase<VerifyPaymentDTO, Response> {
         payment.purchaseOrderID
       );
     } catch {
-      return left(new VerifyPaymentErrors.CannotRetrievePurchaseOrderError());
+      return left(
+        new UpdatePaymentStatusErrors.CannotRetrievePurchaseOrderError()
+      );
     }
 
     let paymentStatus: PaymentStatusDTO;
@@ -57,7 +64,7 @@ export class VerifyPayment implements UseCase<VerifyPaymentDTO, Response> {
         purchaseOrder.receiptNumber
       );
     } catch {
-      return left(new VerifyPaymentErrors.PaymentButtonResponseError());
+      return left(new UpdatePaymentStatusErrors.PaymentButtonResponseError());
     }
 
     payment.status = paymentStatus.status;
