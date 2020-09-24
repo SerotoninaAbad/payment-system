@@ -1,5 +1,5 @@
 import { UseCaseError } from '@core/UseCaseError';
-import { Payment } from 'src/modules/payment/domain/Payment';
+import { Payment } from '../../../domain/Payment';
 import { FakePaymentRepo } from '../../../repos/implementations/__tests__/FakePaymentRepo';
 import { CreatePayment, CreatePaymentDTO } from '../CreatePayment';
 
@@ -9,7 +9,7 @@ const createPaymentDTO: CreatePaymentDTO = {
 
 describe('Create Payment', () => {
   test('Return a new Payment', async () => {
-    const spy = jest.spyOn(FakePaymentRepo.prototype, 'save');
+    const spy = jest.spyOn(FakePaymentRepo.prototype, 'saveOrUpdate');
     const fakePaymentRepo = new FakePaymentRepo();
     const createPayment = new CreatePayment(fakePaymentRepo);
     const paymentResult = await createPayment.execute(createPaymentDTO);
@@ -40,7 +40,7 @@ describe('Create Payment', () => {
 
   test('Handle Payment Saving on Database Errors', async () => {
     const spy = jest
-      .spyOn(FakePaymentRepo.prototype, 'save')
+      .spyOn(FakePaymentRepo.prototype, 'saveOrUpdate')
       .mockImplementation(() => {
         throw new Error();
       });

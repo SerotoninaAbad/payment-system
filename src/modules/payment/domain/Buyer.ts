@@ -36,7 +36,7 @@ export class Buyer extends Entity<BuyerProps> {
     return this.props.email;
   }
 
-  constructor(props: BuyerProps, id?: UniqueEntityID) {
+  private constructor(props: BuyerProps, id?: UniqueEntityID) {
     super(props, id);
   }
 

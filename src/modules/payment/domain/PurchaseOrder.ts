@@ -55,7 +55,7 @@ export class PurchaseOrder extends Entity<PurchaseOrderProps> {
     return this.props.webCheckoutURL;
   }
 
-  constructor(props: PurchaseOrderProps, id?: UniqueEntityID) {
+  private constructor(props: PurchaseOrderProps, id?: UniqueEntityID) {
     super(props, id);
   }
 

@@ -15,6 +15,7 @@ interface PaymentProps {
   purchaseOrderID: string;
   status: PaymentStatus;
   statusDescription: string;
+  statusDateChange: Date;
   invoiceNumber: string | null;
   term: PaymentTerms;
   dateOfIssue: Date;
@@ -36,8 +37,24 @@ export class Payment extends Entity<PaymentProps> {
     return this.props.status;
   }
 
+  set status(status: PaymentStatus) {
+    this.props.status = status;
+  }
+
   get statusDescription(): string {
     return this.props.statusDescription;
+  }
+
+  set statusDescription(statusDescription: string) {
+    this.props.statusDescription = statusDescription;
+  }
+
+  get statusDateChange(): Date {
+    return this.props.statusDateChange;
+  }
+
+  set statusDateChange(date: Date) {
+    this.props.statusDateChange = date;
   }
 
   get invoiceNumber(): string | null {
@@ -52,7 +69,7 @@ export class Payment extends Entity<PaymentProps> {
     return this.props.validUntil;
   }
 
-  constructor(props: PaymentProps, id?: UniqueEntityID) {
+  private constructor(props: PaymentProps, id?: UniqueEntityID) {
     super(props, id);
   }
 

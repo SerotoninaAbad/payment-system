@@ -1,3 +1,4 @@
+import { PaymentStatus } from '../domain/Payment';
 import { PurchaseOrder } from '../domain/PurchaseOrder';
 
 export interface CreatePurchasePaymentButtonDTO {
@@ -19,8 +20,16 @@ export interface CreatePurchasePaymentButtonDTO {
   };
 }
 
+export interface PaymentStatusDTO {
+  status: PaymentStatus;
+  statusDescription: string;
+  statusDate: Date;
+}
+
 export interface IPaymentButton {
   createPurchaseOrder(
     paymentInfo: CreatePurchasePaymentButtonDTO
   ): Promise<PurchaseOrder>;
+
+  getPaymentStatus(receiptNumber: string): Promise<PaymentStatusDTO>;
 }

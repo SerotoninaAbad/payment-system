@@ -1,5 +1,6 @@
 import { Payment } from '../domain/Payment';
 
 export interface IPaymentRepo {
-  save(payment: Payment): Promise<void>;
+  saveOrUpdate(payment: Payment): Promise<void>;
+  getByID(ID: string): Promise<Payment | null>;
 }

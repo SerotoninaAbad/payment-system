@@ -29,6 +29,7 @@ export class CreatePayment implements UseCase<CreatePaymentDTO, Response> {
       status: 'PENDING',
       statusDescription:
         'Regresó del botón de pagos. Transacción no verificada',
+      statusDateChange: new Date(),
       invoiceNumber: null,
       term: 'MONTHLY',
       dateOfIssue: new Date(),
@@ -40,7 +41,7 @@ export class CreatePayment implements UseCase<CreatePaymentDTO, Response> {
     }
 
     try {
-      await this.paymentRepo.save(paymentResult.getValue());
+      await this.paymentRepo.saveOrUpdate(paymentResult.getValue());
     } catch {
       return left(new CreatePaymentErrors.CannotSaveOnDatabaseError());
     }

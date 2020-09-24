@@ -2,7 +2,7 @@ import { Payment, PaymentStatus, PaymentTerms } from '../Payment';
 import { UniqueEntityID } from '@domain/UniqueEntityID';
 
 const dateOfIssue = new Date(2020, 8, 15); //month is zero based
-
+const statusDateChange = new Date(2020, 8, 16);
 const status: PaymentStatus = 'APPROVED';
 const term: PaymentTerms = 'MONTHLY';
 const paymentData = {
@@ -10,6 +10,7 @@ const paymentData = {
   purchaseOrderID: '0f627eb6-2d8f-44e9-a815-2f91f5e9295f',
   status,
   statusDescription: 'La transacción ha sido aprobada',
+  statusDateChange,
   invoiceNumber: '001-0023-434',
   amount: 123,
   term,
@@ -34,6 +35,9 @@ describe('Payment Class', () => {
     expect(payment.dateOfIssue).toBe(paymentData.dateOfIssue);
     expect(payment.validUntil?.toLocaleString()).toBe(
       '10/15/2020, 12:00:00 AM'
+    );
+    expect(payment.statusDateChange.toLocaleString()).toBe(
+      '9/16/2020, 12:00:00 AM'
     );
   });
 

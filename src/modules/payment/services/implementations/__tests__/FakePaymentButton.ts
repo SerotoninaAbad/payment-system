@@ -4,7 +4,8 @@ import { PurchaseOrder } from '../../../domain/PurchaseOrder';
 
 import {
   CreatePurchasePaymentButtonDTO,
-  IPaymentButton
+  IPaymentButton,
+  PaymentStatusDTO
 } from '../../PaymentButton';
 
 export class FakePaymentButton implements IPaymentButton {
@@ -38,6 +39,25 @@ export class FakePaymentButton implements IPaymentButton {
         100,
         resolve,
         purchaseOrderResult.getValue()
+      );
+    });
+
+    return promiseResponse;
+  }
+
+  async getPaymentStatus(receiptNumber: string): Promise<PaymentStatusDTO> {
+    const promiseResponse = new Promise<PaymentStatusDTO>((resolve) => {
+      setTimeout(
+        (resolve) => {
+          const paymentStatus: PaymentStatusDTO = {
+            status: 'APPROVED',
+            statusDescription: 'No errors',
+            statusDate: new Date(2020, 8, 23, 12, 34, 23)
+          };
+          resolve(paymentStatus);
+        },
+        100,
+        resolve
       );
     });
 
